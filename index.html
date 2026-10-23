@@ -12,50 +12,75 @@
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
         .drag-over-category { background-color: #e0e7ff !important; border: 2px dashed #4f46e5 !important; }
+        .app-h { height: 100vh; height: 100dvh; }
+        #sidebar { transition: transform .2s ease; }
+        #sidebar.drawer-open { transform: translateX(0); }
+        .drag-hint { display: none; }
+        @media (hover: hover) { .drag-hint { display: inline; } }
+        /* 觸控裝置（手機 / iPad）沒有「滑過」，所以編輯、刪除按鈕要一直顯示，並放大好按 */
+        @media (hover: none) {
+            [class*="group-hover"] { opacity: 1 !important; }
+            #categoryTree [class*="group-hover"] button { padding: 6px 7px; font-size: 13px !important; }
+            .card-del { padding: 8px !important; font-size: 14px !important; }
+        }
+        /* 手機上輸入框字體 < 16px 時 iOS 會自動放大畫面，所以小螢幕一律 16px */
+        @media (max-width: 767px) { input, textarea, select { font-size: 16px !important; } }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col font-sans overflow-hidden">
+<body class="bg-slate-50 text-slate-800 app-h flex flex-col font-sans overflow-hidden">
 
     <!-- 頂部導覽列 -->
     <header class="bg-white border-b border-slate-200 flex-shrink-0 z-30 shadow-sm">
-        <div class="max-w-[1600px] mx-auto px-4 py-3 flex items-center justify-between gap-4">
-            <div class="flex items-center gap-3">
-                <div class="bg-indigo-600 text-white p-2.5 rounded-xl shadow-md">
-                    <i class="fa-solid fa-bookmark text-xl"></i>
+        <div class="max-w-[1600px] mx-auto px-3 sm:px-4 py-2.5 sm:py-3 flex items-center justify-between gap-2 sm:gap-4">
+            <div class="flex items-center gap-2 sm:gap-3 min-w-0">
+                <button onclick="toggleDrawer()" class="lg:hidden p-2 -ml-1 text-slate-600 hover:bg-slate-100 rounded-lg" aria-label="開啟分類選單" title="分類選單">
+                    <i class="fa-solid fa-bars text-lg"></i>
+                </button>
+                <div class="bg-indigo-600 text-white p-2 sm:p-2.5 rounded-xl shadow-md flex-shrink-0">
+                    <i class="fa-solid fa-bookmark text-lg sm:text-xl"></i>
                 </div>
-                <div>
-                    <h1 class="text-xl font-bold text-slate-800 tracking-tight">書籤整理器</h1>
-                </div>
+                <h1 class="hidden sm:block text-xl font-bold text-slate-800 tracking-tight truncate">書籤整理器</h1>
             </div>
 
             <!-- 右側操作區 -->
-            <div class="flex items-center gap-2">
-                <button onclick="openImportModal()" class="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-medium rounded-lg transition flex items-center gap-2">
+            <div class="flex items-center gap-1.5 sm:gap-2">
+                <span id="saveStatus" class="text-xs text-slate-400 mr-0.5 sm:mr-1 whitespace-nowrap" title="資料會自動儲存在這個瀏覽器裡"></span>
+                <button onclick="syncNow()" class="px-2.5 sm:px-3.5 py-2 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-sm font-medium rounded-lg transition flex items-center gap-2 border border-emerald-200" aria-label="同步最新版" title="從網站讀取最新的 bookmarks.json">
+                    <i class="fa-solid fa-arrows-rotate"></i>
+                    <span class="hidden md:inline">同步最新</span>
+                </button>
+                <button onclick="openImportModal()" class="px-2.5 sm:px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-medium rounded-lg transition flex items-center gap-2" aria-label="匯入或貼上 JSON" title="匯入 / 貼上 JSON">
                     <i class="fa-solid fa-file-import text-indigo-600"></i>
-                    <span>匯入 / 貼上 JSON</span>
+                    <span class="hidden md:inline">匯入 / 貼上 JSON</span>
                 </button>
-                <button onclick="exportJSON()" class="px-3.5 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-sm font-medium rounded-lg transition flex items-center gap-2 border border-indigo-200">
+                <button onclick="exportJSON()" class="px-2.5 sm:px-3.5 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-sm font-medium rounded-lg transition flex items-center gap-2 border border-indigo-200" aria-label="匯出 JSON 備份" title="匯出 JSON 備份">
                     <i class="fa-solid fa-file-export"></i>
-                    <span>匯出 JSON 備份</span>
+                    <span class="hidden md:inline">匯出 JSON 備份</span>
                 </button>
-                <button onclick="exportHTML()" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-900 text-white text-sm font-medium rounded-lg transition flex items-center gap-2 shadow-sm">
+                <button onclick="exportHTML()" class="px-2.5 sm:px-3.5 py-2 bg-slate-800 hover:bg-slate-900 text-white text-sm font-medium rounded-lg transition flex items-center gap-2 shadow-sm" aria-label="匯出 HTML 書籤" title="匯出 HTML 書籤">
                     <i class="fa-solid fa-download"></i>
-                    <span>匯出 HTML 書籤</span>
+                    <span class="hidden md:inline">匯出 HTML 書籤</span>
                 </button>
             </div>
         </div>
     </header>
 
     <!-- 主要內容區 -->
-    <div class="flex-1 max-w-[1600px] w-full mx-auto flex h-[calc(100vh-65px)] overflow-hidden">
+    <div class="flex-1 min-h-0 max-w-[1600px] w-full mx-auto flex overflow-hidden">
         
         <!-- 左側邊欄：分類樹狀管理 -->
-        <aside class="w-80 border-r border-slate-200 bg-white flex flex-col flex-shrink-0 h-full overflow-hidden">
+        <div id="drawerBackdrop" onclick="closeDrawer()" class="fixed inset-0 bg-slate-900/40 z-30 hidden lg:hidden"></div>
+        <aside id="sidebar" class="fixed lg:static inset-y-0 left-0 z-40 w-80 max-w-[85vw] -translate-x-full lg:translate-x-0 border-r border-slate-200 bg-white flex flex-col flex-shrink-0 h-full overflow-hidden shadow-xl lg:shadow-none">
             <div class="p-3 border-b border-slate-100 flex items-center justify-between bg-slate-50 flex-shrink-0">
                 <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">分類樹狀管理</span>
-                <button onclick="addMainCategory()" class="text-xs bg-indigo-50 text-indigo-600 hover:bg-indigo-100 px-2 py-1 rounded font-medium transition flex items-center gap-1">
-                    <i class="fa-solid fa-plus"></i> 新增主分類
-                </button>
+                <div class="flex items-center gap-2">
+                    <button onclick="addMainCategory()" class="text-xs bg-indigo-50 text-indigo-600 hover:bg-indigo-100 px-2 py-1 rounded font-medium transition flex items-center gap-1">
+                        <i class="fa-solid fa-plus"></i> 新增主分類
+                    </button>
+                    <button onclick="closeDrawer()" class="lg:hidden text-slate-400 hover:text-slate-600 p-1.5" aria-label="關閉分類選單">
+                        <i class="fa-solid fa-xmark text-lg"></i>
+                    </button>
+                </div>
             </div>
 
             <div class="p-2 border-b border-slate-100 flex-shrink-0">
@@ -86,17 +111,17 @@
         </aside>
 
         <!-- 右側內容區：網址與清單 -->
-        <main class="flex-1 flex flex-col bg-slate-50 h-full overflow-hidden">
+        <main class="flex-1 min-w-0 min-h-0 flex flex-col bg-slate-50 h-full overflow-hidden">
             <!-- 頂部篩選與搜尋欄 -->
-            <div class="p-4 bg-white border-b border-slate-200 flex flex-wrap items-center justify-between gap-4 shadow-sm flex-shrink-0">
-                <div class="flex items-center gap-3 flex-1 min-w-[280px]">
+            <div class="p-3 sm:p-4 bg-white border-b border-slate-200 flex flex-wrap items-center justify-between gap-3 sm:gap-4 shadow-sm flex-shrink-0">
+                <div class="flex items-center gap-3 flex-1 min-w-[200px]">
                     <div class="relative flex-1">
                         <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
                         <input type="text" id="searchInput" oninput="renderBookmarks()" placeholder="搜尋網址標題、URL 或標籤..." class="w-full pl-9 pr-4 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
                     </div>
                 </div>
                 <div class="flex items-center gap-2">
-                    <span id="currentCategoryTitle" class="text-sm font-bold text-slate-700 bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200">
+                    <span id="currentCategoryTitle" class="text-sm font-bold text-slate-700 bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200 truncate max-w-[55vw] sm:max-w-xs">
                         全部網址書籤
                     </span>
                     <button onclick="openAddBookmarkModal()" class="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-lg transition shadow-sm flex items-center gap-1.5">
@@ -107,8 +132,8 @@
             </div>
 
             <!-- 書籤卡片顯示區 -->
-            <div id="bookmarkContainer" class="flex-1 overflow-y-auto p-4 custom-scrollbar">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3" id="bookmarkGrid">
+            <div id="bookmarkContainer" class="flex-1 overflow-y-auto p-3 sm:p-4 custom-scrollbar">
+                <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3" id="bookmarkGrid">
                     <!-- 動態渲染網址卡片 -->
                 </div>
             </div>
@@ -117,7 +142,7 @@
 
     <!-- 匯入 / 貼上 JSON 彈出視窗 -->
     <div id="importModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center hidden">
-        <div class="bg-white rounded-2xl shadow-xl max-w-xl w-full p-6 mx-4 space-y-4">
+        <div class="bg-white rounded-2xl shadow-xl max-w-xl w-full p-4 sm:p-6 mx-3 sm:mx-4 space-y-4 max-h-[90vh] overflow-y-auto">
             <div class="flex items-center justify-between border-b border-slate-100 pb-3">
                 <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
                     <i class="fa-solid fa-file-import text-indigo-600"></i>
@@ -160,89 +185,57 @@
 
     <!-- 腳本處理邏輯 -->
     <script>
-        // 內建您原先整理好的完整分類與 158 筆書籤資料
+        // 內建的分類與書籤資料（只在「第一次使用、又讀不到網站上的 bookmarks.json」時使用）
         const DEFAULT_TAXONOMY = [
-            {
-                id: "g-1",
-                name: "旅遊與美食",
-                children: [
-                    { id: "sub-1-1", name: "日本旅遊" },
-                    { id: "sub-1-2", name: "台灣旅遊" },
-                    { id: "sub-1-3", name: "世界旅遊" },
-                    { id: "sub-1-4", name: "各地美食" },
-                    { id: "sub-1-5", name: "料理食譜" },
-                    { id: "sub-1-6", name: "廚房與生活小秘訣" },
-                    { id: "sub-1-7", name: "購物" },
-                    { id: "sub-1-8", name: "日本春夏" },
-                    { id: "sub-1-9", name: "日本秋冬" }
-                ]
-            },
-            {
-                id: "g-2",
-                name: "華語與語言學習",
-                children: [
-                    { id: "sub-2-1", name: "華語教材與課程" },
-                    { id: "sub-2-2", name: "語音與聽力" },
-                    { id: "sub-2-3", name: "AP Chinese" },
-                    { id: "sub-2-4", name: "語文遊戲與互動" },
-                    { id: "sub-2-5", name: "閱讀" },
-                    { id: "sub-2-6", name: "其他檢定" },
-                    { id: "sub-2-7", name: "語料庫字典等資源" },
-                    { id: "sub-2-8", name: "發音和多媒體" },
-                    { id: "sub-2-9", name: "語法" },
-                    { id: "sub-2-10", name: "HSK" }
-                ]
-            },
-            {
-                id: "g-3",
-                name: "視覺與影片創作",
-                children: [
-                    { id: "sub-3-1", name: "攝影" },
-                    { id: "sub-3-2", name: "圖像設計" },
-                    { id: "sub-3-3", name: "相機和後製" }
-                ]
-            },
-            {
-                id: "g-4",
-                name: "科技與學習",
-                children: [
-                    { id: "sub-4-1", name: "AI與智慧工具" },
-                    { id: "sub-4-2", name: "慕課" }
-                ]
-            },
-            {
-                id: "g-5",
-                name: "工作",
-                children: [
-                    { id: "sub-5-1", name: "自媒" },
-                    { id: "sub-5-2", name: "股票" },
-                    { id: "sub-5-3", name: "完美行" }
-                ]
-            },
-            {
-                id: "g-6",
-                name: "健康美容",
-                children: [
-                    { id: "sub-6-1", name: "美容身材" },
-                    { id: "sub-6-2", name: "健康秘訣" }
-                ]
-            },
-            {
-                id: "g-7",
-                name: "日常與數位工具",
-                children: [
-                    { id: "sub-7-1", name: "線上轉換工具" },
-                    { id: "sub-7-2", name: "雲端與筆記軟體" }
-                ]
-            },
-            {
-                id: "g-8",
-                name: "英日語",
-                children: [
-                    { id: "sub-8-1", name: "英語" },
-                    { id: "sub-8-2", name: "日語" }
-                ]
-            }
+            { id: "g-1", name: "旅遊與美食", children: [
+                { id: "sub-1-1", name: "日本旅遊" },
+                { id: "sub-1-2", name: "台灣旅遊" },
+                { id: "sub-1-3", name: "世界旅遊" },
+                { id: "sub-1-4", name: "各地美食" },
+                { id: "sub-1-5", name: "料理食譜" },
+                { id: "sub-1-6", name: "廚房與生活小秘訣" },
+                { id: "sub-1-7", name: "購物" },
+                { id: "sub-1-8", name: "日本春夏" },
+                { id: "sub-1-9", name: "日本秋冬" }
+            ] },
+            { id: "g-2", name: "華語與語言學習", children: [
+                { id: "sub-2-1", name: "華語教材與課程" },
+                { id: "sub-2-2", name: "語音與聽力" },
+                { id: "sub-2-3", name: "AP Chinese" },
+                { id: "sub-2-4", name: "遊戲備課和互動" },
+                { id: "sub-2-5", name: "閱讀" },
+                { id: "sub-2-6", name: "其他檢定" },
+                { id: "sub-2-7", name: "語料庫字典等資源" },
+                { id: "sub-2-8", name: "發音和多媒體" },
+                { id: "sub-2-9", name: "語法" },
+                { id: "sub-2-10", name: "HSK" }
+            ] },
+            { id: "g-3", name: "視覺與影片創作", children: [
+                { id: "sub-3-1", name: "攝影" },
+                { id: "sub-3-2", name: "圖像設計" },
+                { id: "sub-3-3", name: "相機和後製" }
+            ] },
+            { id: "g-4", name: "科技與學習", children: [
+                { id: "sub-4-1", name: "AI與智慧工具" },
+                { id: "sub-4-2", name: "慕課" }
+            ] },
+            { id: "g-5", name: "工作", children: [
+                { id: "sub-5-1", name: "自媒" },
+                { id: "sub-5-2", name: "股票" },
+                { id: "sub-5-3", name: "完美行" }
+            ] },
+            { id: "g-6", name: "健康美容", children: [
+                { id: "sub-6-1", name: "美容身材" },
+                { id: "sub-6-2", name: "健康秘訣" }
+            ] },
+            { id: "g-7", name: "日常與數位工具", children: [
+                { id: "sub-7-1", name: "線上轉換工具" },
+                { id: "sub-7-2", name: "雲端與筆記軟體" }
+            ] },
+            { id: "g-8", name: "英日語", children: [
+                { id: "sub-8-1", name: "英語" },
+                { id: "sub-8-2", name: "日語" }
+            ] }
         ];
 
         // 完美對應您原本整理好的 158 筆書籤
@@ -429,7 +422,7 @@
             { id: "bm-180", title: "[App 互動版] 以琳老師多益閱讀速度修煉課 | WORD UP", url: "https://shop.wordup.com.tw/product/347?utm_source=edm&utm_medium=all_user&utm_campaign=yiling_toeic_reading&utm_content=free_trial", categoryId: "sub-2-4" },
             { id: "bm-181", title: "ESL Phonics - Word Lists, Reading Passages, Printable Worksheets and Quizzes", url: "http://stickyball.net/phonics.html", categoryId: "sub-2-4" },
             { id: "bm-182", title: "發音", url: "http://www.manythings.org/pp/", categoryId: "sub-2-2" },
-            { id: "bm-183", title: "经典！老外最想聊的100个口语话题 - 口语 - 爱思英语学习网 - 24EN.COM", url: "http://www.24en.com/study/speaking/2013-09-05/160258.html", categoryId: "sub-3-1" },
+            { id: "bm-183", title: "经典！老外最想聊的100个口语话题 - 口语 - 爱思英语学习网 - 24EN.COM", url: "http://www.24en.com/study/speaking/2013-09-05/160258.html", categoryId: "sub-2-1" },
             { id: "bm-184", title: "英訳しにくい日本語 | 英語学習サイト：Hapa 英会話", url: "http://hapaeikaiwa.com/category/english-column/translation/", categoryId: "sub-8-1" },
             { id: "bm-185", title: "日本文化を英語で説明しよう! 茶道編〜わびさびってどういう意味？〜", url: "http://english.cheerup.jp/article/1457?page=4", categoryId: "sub-8-1" },
             { id: "bm-186", title: "TOEIC文法問題集（英語音声付）第1問～第100問 – TOEICスコアアップの教科書", url: "https://zitanstudy.com/?page_id=4190", categoryId: "sub-2-6" },
@@ -482,7 +475,21 @@
             { id: "bm-233", title: "東京駅 死ぬまでに絶対撮りたい100の被写体【Z70-180mmf2.8】 - YouTube", url: "https://www.youtube.com/watch?v=ODZpZoZKVxQ", categoryId: "sub-1-1" },
             { id: "bm-234", title: "嘴體操去法令紋", url: "https://www.facebook.com/reel/1121084265633907", categoryId: "sub-6-1" },
             { id: "bm-235", title: "AI 文章改寫", url: "https://wordvice.ai/tw/tools/paraphrasing/81343e3f-dd7c-40d5-aa91-32afe42e9463", categoryId: "sub-4-1" },
-            { id: "bm-236", title: "二八效應等", url: "http://tw.anyelse.com/article/12087.html?_", categoryId: "sub-2-5" }
+            { id: "bm-236", title: "二八效應等", url: "http://tw.anyelse.com/article/12087.html?_", categoryId: "sub-2-5" },
+            { id: "bm-1792743372680", title: "印度推薦必去１５個世界遺產", url: "https://ninetyroadtravel.com/india/world-heritage/", categoryId: "sub-1-3" },
+            { id: "bm-1792743404006", title: "免費租旗袍", url: "https://www.facebook.com/share/r/15iPWGY1TC/?", categoryId: "sub-1-2" },
+            { id: "bm-1792743450459", title: "九州看花和星空", url: "https://hanatohoshi.com/glamping/", categoryId: "sub-1-1" },
+            { id: "bm-1792743487912", title: "京都櫻花秘境", url: "share.google/vYGPWTdEqxxDYplKq", categoryId: "sub-1-1" },
+            { id: "bm-1792743584907", title: "山豬肉好吃", url: "maps.app.goo.gl/zd9p78up33uFJnii6?g_st=in", categoryId: "sub-1-4" },
+            { id: "bm-1792743663441", title: "對焦和測光", url: "https://www.facebook.com/reel/1148403147513853", categoryId: "sub-3-3" },
+            { id: "bm-1792743716939", title: "４７８呼吸法秒睡", url: "https://tw.news.yahoo.com/4-7-8%E5%91%BC%E5%90%B8%E6%B3%95-%E7%88%86%E7%B4%85-%E5%A4%B1%E7%9C%A0%E4%B9%9F%E8%83%BD%E7%A7%92%E5%85%A5%E7%9D%A1-122300053.html?link_source=ta_first_comment&taid=6a9eea11fd02c800015b4231&utm_campaign=trueanthem&utm_medium=social&utm_source=facebook&fbclid=IwcGRvZgFmZGlkFlDk3d4IY576mKfb7l-4WfBD4ViT6e9leHRuA2FlbQIxMQBzcnRjBmFwcF9pZAo2NjI4NTY4Mzc5AAEepKAgl4gxi2HgNX-WBbNJ37yexr1UZNdN9hKtX3GmrbGvgG0GqXUFJh08W6U_aem_Xmb1TpY9iyjEK3csqerBNg", categoryId: "sub-6-2" },
+            { id: "bm-1792743752938", title: "一周減肥食譜", url: "https://www.facebook.com/share/v/1FbWkjxWiy/?mibextid=wwXIfr", categoryId: "sub-6-1" },
+            { id: "bm-1792743900723", title: "米克師備課", url: "https://spedmix.pages.dev/?fbclid=IwZnRzaASWHZdleHRuA2FlbQIxMQBzcnRjBmFwcF9pZAo2NjI4NTY4Mzc5AAEeTHfbs7B7Jeok1uf5rZKQteaDiWZPBH3aGNv_KR_djvuRFsDHk3a1zJPgcQM_aem_DFJowxgHGCetQxUG3ogg8A#detail/chinese", categoryId: "sub-6-1" },
+            { id: "bm-1792744225033", title: "手機和相機如何拍星空", url: "https://youtu.be/0utn09KOFO4?si=XGKyxNB5hqvJ00", categoryId: "sub-3-1" },
+            { id: "bm-1792744465050", title: "用日語解釋中文文法", url: "https://www.chinesemaster.net/grammar/%E7%96%91%E5%95%8F%E8%A9%9E%E3%81%AE%E4%BB%BB%E6%84%8F%E7%94%A8%E6%B3%95", categoryId: "sub-2-9" },
+            { id: "bm-1792744586097", title: "課本沒教的華語音檔", url: "https://drive.google.com/drive/folders/1MZfgUQwxduGleMBGqwAUHbckfbFOkNAi", categoryId: "sub-2-1" },
+            { id: "bm-1792744637146", title: "三體", url: "https://www.99csw.com/book/576/18058.htm", categoryId: "sub-2-5" },
+            { id: "bm-1792744796730", title: "７秒深蹲燃脂", url: "https://www.facebook.com/share/1Cf9M2Md8f/?mibextid=wwXIfr", categoryId: "sub-6-1" }
         ];
 
         let state = {
@@ -491,40 +498,220 @@
             activeCategory: 'ALL'
         };
 
-        window.addEventListener('DOMContentLoaded', () => {
-            loadState();
-            renderAll();
-        });
+        // ===== 自動記憶：同時存在 localStorage 與 IndexedDB（雙備份） =====
+        const LS_KEYS = { taxonomy: 'bm_taxonomy', bookmarks: 'bm_bookmarks', time: 'bm_saved_at' };
+        const IDB_NAME = 'bookmark-organizer-db';
+        const IDB_STORE = 'kv';
 
-        function loadState() {
+        function idbOpen() {
+            return new Promise((resolve, reject) => {
+                if (!window.indexedDB) return reject(new Error('no indexedDB'));
+                const req = indexedDB.open(IDB_NAME, 1);
+                req.onupgradeneeded = () => req.result.createObjectStore(IDB_STORE);
+                req.onsuccess = () => resolve(req.result);
+                req.onerror = () => reject(req.error);
+            });
+        }
+        async function idbGet(key) {
+            const db = await idbOpen();
+            return new Promise((resolve, reject) => {
+                const r = db.transaction(IDB_STORE, 'readonly').objectStore(IDB_STORE).get(key);
+                r.onsuccess = () => resolve(r.result);
+                r.onerror = () => reject(r.error);
+            });
+        }
+        async function idbSet(key, value) {
+            const db = await idbOpen();
+            return new Promise((resolve, reject) => {
+                const tx = db.transaction(IDB_STORE, 'readwrite');
+                tx.objectStore(IDB_STORE).put(value, key);
+                tx.oncomplete = () => resolve();
+                tx.onerror = () => reject(tx.error);
+                tx.onabort = () => reject(tx.error);
+            });
+        }
+
+        function readFromLocalStorage() {
             try {
-                const savedTaxonomy = localStorage.getItem('bm_taxonomy');
-                if (savedTaxonomy) state.taxonomy = JSON.parse(savedTaxonomy);
-            } catch(e) {
-                state.taxonomy = [];
-            }
+                const t = localStorage.getItem(LS_KEYS.taxonomy);
+                const b = localStorage.getItem(LS_KEYS.bookmarks);
+                if (t === null && b === null) return null;
+                return {
+                    taxonomy: t ? JSON.parse(t) : null,
+                    bookmarks: b ? JSON.parse(b) : null,
+                    savedAt: Number(localStorage.getItem(LS_KEYS.time)) || 0,
+                    seedVersion: localStorage.getItem('bm_seed_version') || ''
+                };
+            } catch (e) { return null; }
+        }
 
-            if (!state.taxonomy || !Array.isArray(state.taxonomy) || state.taxonomy.length === 0) {
-                state.taxonomy = JSON.parse(JSON.stringify(DEFAULT_TAXONOMY));
-            }
-
+        async function readFromIndexedDB() {
             try {
-                const savedBookmarks = localStorage.getItem('bm_bookmarks');
-                if (savedBookmarks) state.bookmarks = JSON.parse(savedBookmarks);
-            } catch(e) {
-                state.bookmarks = [];
-            }
+                const d = await idbGet('state');
+                return d || null;
+            } catch (e) { return null; }
+        }
 
-            // 防呆：若 LocalStorage 沒有書籤，直接載入您整理好的 158 筆資料
-            if (!state.bookmarks || !Array.isArray(state.bookmarks) || state.bookmarks.length === 0) {
-                state.bookmarks = JSON.parse(JSON.stringify(DEFAULT_BOOKMARKS));
-                saveState();
+        function showSaveStatus(ok, detail) {
+            const el = document.getElementById('saveStatus');
+            if (!el) return;
+            if (ok) {
+                const t = new Date().toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit' });
+                el.className = 'text-xs text-emerald-600 mr-1 whitespace-nowrap';
+                el.innerHTML = '<i class="fa-solid fa-circle-check"></i><span class="hidden md:inline"> 已自動儲存 ' + t + '</span>';
+            } else {
+                el.className = 'text-xs text-rose-600 font-bold mr-1 whitespace-nowrap';
+                el.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> <span class="md:hidden">無法記憶</span><span class="hidden md:inline">此環境無法記憶，請記得匯出 JSON</span>';
+                el.title = detail || '';
             }
         }
 
+        window.addEventListener('DOMContentLoaded', async () => {
+            await loadState();
+            renderAll();
+            checkRemoteUpdate(); // 背景檢查網站上有沒有新版 bookmarks.json
+            // 要求瀏覽器「持久保存」，避免空間不足時被自動清除
+            try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist(); } catch (e) {}
+        });
+
+        let freshSeed = false;      // 這次是不是第一次使用（從內建資料開始，使用者還沒改過）
+        let ackVersion = '';        // 已經處理過（換成或選擇保留）的網站版本
+
+        async function loadState() {
+            const fromLS = readFromLocalStorage();
+            const fromIDB = await readFromIndexedDB();
+
+            // 兩邊都有時，採用較新的那一份
+            let saved = null;
+            if (fromLS && fromIDB) saved = (fromIDB.savedAt || 0) > (fromLS.savedAt || 0) ? fromIDB : fromLS;
+            else saved = fromLS || fromIDB;
+
+            const validTax = saved && Array.isArray(saved.taxonomy) && saved.taxonomy.length > 0;
+            const validBm = saved && Array.isArray(saved.bookmarks);
+
+            state.taxonomy = validTax ? saved.taxonomy : JSON.parse(JSON.stringify(DEFAULT_TAXONOMY));
+
+            if (validBm) {
+                // 有存檔就照存檔（包含你刻意刪光的情況）
+                state.bookmarks = saved.bookmarks;
+                ackVersion = saved.seedVersion || '';
+                seedVersionInUse = ackVersion;
+            } else {
+                // 從來沒存過：載入內建預設書籤，並立刻存起來
+                state.bookmarks = JSON.parse(JSON.stringify(DEFAULT_BOOKMARKS));
+                freshSeed = true;
+                persistState();
+            }
+            showSaveStatus(!!saved || localStorageWorks());
+        }
+
+        // ===== 從網站讀取最新的 bookmarks.json（和這個網頁放在同一個資料夾） =====
+        function dataHash(tax, bms) {
+            const str = JSON.stringify({ t: tax, b: bms });
+            let h = 5381;
+            for (let i = 0; i < str.length; i++) h = ((h << 5) + h + str.charCodeAt(i)) | 0;
+            return (h >>> 0).toString(36) + '-' + str.length;
+        }
+
+        async function fetchRemote() {
+            if (location.protocol === 'file:') return null;
+            try {
+                const ctrl = new AbortController();
+                const timer = setTimeout(() => ctrl.abort(), 8000);
+                const res = await fetch('bookmarks.json?t=' + Date.now(), { cache: 'no-store', signal: ctrl.signal });
+                clearTimeout(timer);
+                if (!res.ok) return null;
+                const d = await res.json();
+                if (!d || !Array.isArray(d.taxonomy) || d.taxonomy.length === 0 || !Array.isArray(d.bookmarks)) return null;
+                return { taxonomy: d.taxonomy, bookmarks: d.bookmarks };
+            } catch (e) { return null; }
+        }
+
+        function applyRemote(remote, ver) {
+            state.taxonomy = remote.taxonomy;
+            state.bookmarks = remote.bookmarks;
+            seedVersionInUse = ver;
+            ackVersion = ver;
+            const ids = new Set(['ALL']);
+            state.taxonomy.forEach(g => { ids.add(g.id); g.children.forEach(c => ids.add(c.id)); });
+            if (!ids.has(state.activeCategory)) state.activeCategory = 'ALL';
+            persistState();
+            renderAll();
+        }
+
+        async function checkRemoteUpdate() {
+            const remote = await fetchRemote();
+            if (!remote) return;
+            const rHash = dataHash(remote.taxonomy, remote.bookmarks);
+            const rVer = 'r-' + rHash;
+            const lHash = dataHash(state.taxonomy, state.bookmarks);
+
+            if (rHash === lHash) {                       // 內容一樣，不用問
+                if (seedVersionInUse !== rVer) { seedVersionInUse = rVer; ackVersion = rVer; persistState(); }
+                return;
+            }
+            if (freshSeed) { applyRemote(remote, rVer); return; }   // 第一次使用：直接用網站上的最新版
+            if (rVer === ackVersion) return;             // 這一版你已經處理過（選過保留），不再打擾
+
+            const useNew = confirm(
+                '網站上有新版書籤（' + remote.bookmarks.length + ' 筆），和這個瀏覽器目前的（' + state.bookmarks.length + ' 筆）不同。\n\n' +
+                '按「確定」：換成網站上的新版（會取代這個瀏覽器目前的資料）\n' +
+                '按「取消」：保留目前的資料（這一版之後不再詢問，想換可按右上角「同步最新」）');
+            if (useNew) applyRemote(remote, rVer);
+            else { seedVersionInUse = rVer; ackVersion = rVer; persistState(); }
+        }
+
+        async function syncNow() {
+            const remote = await fetchRemote();
+            if (!remote) {
+                alert('讀不到網站上的 bookmarks.json。\n\n可能原因：\n・這個頁面是用「檔案」方式開啟（不是 GitHub 網址）\n・目前沒有網路\n・bookmarks.json 還沒上傳到網頁的同一個資料夾');
+                return;
+            }
+            const rHash = dataHash(remote.taxonomy, remote.bookmarks);
+            if (rHash === dataHash(state.taxonomy, state.bookmarks)) {
+                alert('目前已經是最新版（' + state.bookmarks.length + ' 筆）。');
+                return;
+            }
+            if (confirm('網站上的書籤有 ' + remote.bookmarks.length + ' 筆，這個瀏覽器目前有 ' + state.bookmarks.length + ' 筆。\n\n要換成網站上的版本嗎？（會取代目前的資料）')) {
+                applyRemote(remote, 'r-' + rHash);
+            }
+        }
+
+        function localStorageWorks() {
+            try {
+                localStorage.setItem('bm_test', '1');
+                localStorage.removeItem('bm_test');
+                return true;
+            } catch (e) { return false; }
+        }
+
+        let seedVersionInUse = '';
+
+        function persistState() {
+            const savedAt = Date.now();
+            let lsOk = false;
+            try {
+                localStorage.setItem(LS_KEYS.taxonomy, JSON.stringify(state.taxonomy));
+                localStorage.setItem(LS_KEYS.bookmarks, JSON.stringify(state.bookmarks));
+                localStorage.setItem(LS_KEYS.time, String(savedAt));
+                localStorage.setItem('bm_seed_version', seedVersionInUse);
+                lsOk = true;
+            } catch (e) { console.warn('localStorage 儲存失敗', e); }
+
+            const snapshot = JSON.parse(JSON.stringify({
+                taxonomy: state.taxonomy, bookmarks: state.bookmarks, savedAt, seedVersion: seedVersionInUse
+            }));
+            idbSet('state', snapshot)
+                .then(() => showSaveStatus(true))
+                .catch(e => {
+                    console.warn('IndexedDB 儲存失敗', e);
+                    showSaveStatus(lsOk, String(e));
+                });
+            if (lsOk) showSaveStatus(true);
+        }
+
         function saveState() {
-            localStorage.setItem('bm_taxonomy', JSON.stringify(state.taxonomy));
-            localStorage.setItem('bm_bookmarks', JSON.stringify(state.bookmarks));
+            persistState();
             renderAll();
         }
 
@@ -660,6 +847,19 @@
                 });
             }
             document.getElementById('currentCategoryTitle').innerText = title;
+            closeDrawer();
+        }
+
+        function openDrawer() {
+            document.getElementById('sidebar').classList.add('drawer-open');
+            document.getElementById('drawerBackdrop').classList.remove('hidden');
+        }
+        function closeDrawer() {
+            document.getElementById('sidebar').classList.remove('drawer-open');
+            document.getElementById('drawerBackdrop').classList.add('hidden');
+        }
+        function toggleDrawer() {
+            if (document.getElementById('sidebar').classList.contains('drawer-open')) closeDrawer(); else openDrawer();
         }
 
         function renderBookmarks() {
@@ -692,9 +892,25 @@
                 return;
             }
 
-            grid.innerHTML = list.map(b => `
-                <div class="bg-white border border-slate-200 hover:border-indigo-300 rounded-xl p-3.5 shadow-2xs hover:shadow-md transition flex flex-col justify-between group cursor-grab active:cursor-grabbing"
-                     draggable="true"
+            const canDrag = window.matchMedia && window.matchMedia('(hover: hover)').matches;
+            const subIds = new Set();
+            const optionsHtml = state.taxonomy.map(g => {
+                g.children.forEach(c => subIds.add(c.id));
+                return `<optgroup label="${escapeHtml(g.name)}">` +
+                    g.children.map(c => `<option value="${c.id}">${escapeHtml(c.name)}</option>`).join('') +
+                    `</optgroup>`;
+            }).join('');
+
+            grid.innerHTML = list.map(b => {
+                let opts = optionsHtml;
+                if (subIds.has(b.categoryId)) {
+                    opts = opts.replace(`value="${b.categoryId}"`, `value="${b.categoryId}" selected`);
+                } else {
+                    opts = `<option value="${b.categoryId}" selected>${escapeHtml(getCategoryName(b.categoryId))}</option>` + opts;
+                }
+                return `
+                <div class="bg-white border border-slate-200 hover:border-indigo-300 rounded-xl p-3.5 shadow-2xs hover:shadow-md transition flex flex-col justify-between group ${canDrag ? 'cursor-grab active:cursor-grabbing' : ''}"
+                     ${canDrag ? 'draggable="true"' : ''}
                      ondragstart="handleDragStart(event, '${b.id}')">
                     <div>
                         <div class="flex items-start justify-between gap-2 mb-1.5">
@@ -702,18 +918,19 @@
                                 <i class="fa-solid fa-link text-xs text-indigo-500 mr-1"></i>
                                 ${escapeHtml(b.title || b.url)}
                             </a>
-                            <button onclick="deleteBookmark('${b.id}')" class="text-slate-300 hover:text-rose-500 opacity-0 group-hover:opacity-100 transition text-xs p-1">
+                            <button onclick="deleteBookmark('${b.id}')" class="card-del text-slate-300 hover:text-rose-500 opacity-0 group-hover:opacity-100 transition text-xs p-1" aria-label="刪除書籤">
                                 <i class="fa-solid fa-trash-can"></i>
                             </button>
                         </div>
                         <p class="text-xs text-slate-400 truncate mb-2">${escapeHtml(b.url)}</p>
                     </div>
                     <div class="flex items-center justify-between text-[11px] text-slate-400 border-t border-slate-100 pt-2 mt-1">
-                        <span class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded">${getCategoryName(b.categoryId)}</span>
-                        <span><i class="fa-regular fa-grip-dots-vertical mr-1"></i>可拖曳歸類</span>
+                        <select onchange="moveBookmark('${b.id}', this.value)" class="bg-slate-100 text-slate-600 px-1.5 py-1 rounded text-[11px] max-w-[70%] truncate border-0 cursor-pointer" aria-label="更換分類">${opts}</select>
+                        <span class="drag-hint">可拖曳歸類</span>
                     </div>
                 </div>
-            `).join('');
+            `;
+            }).join('');
         }
 
         function handleDragStart(e, bookmarkId) {
@@ -814,7 +1031,18 @@
         }
 
         function deleteBookmark(id) {
+            const target = state.bookmarks.find(b => b.id === id);
+            if (!target) return;
+            if (!confirm('要刪除這筆書籤嗎？\n\n' + (target.title || target.url))) return;
             state.bookmarks = state.bookmarks.filter(b => b.id !== id);
+            saveState();
+        }
+
+        // 用下拉選單換分類（手機 / iPad 不能拖曳，電腦也可以用）
+        function moveBookmark(id, catId) {
+            const target = state.bookmarks.find(b => b.id === id);
+            if (!target || !catId) return;
+            target.categoryId = catId;
             saveState();
         }
 
