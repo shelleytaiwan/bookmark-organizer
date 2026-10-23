@@ -158,11 +158,11 @@
       "children": [
         {
           "id": "sub-7-1",
-          "name": "線上轉換工具"
+          "name": "線上轉換"
         },
         {
           "id": "sub-7-2",
-          "name": "雲端與筆記軟體"
+          "name": "雲端與軟體"
         }
       ]
     },
@@ -312,13 +312,7 @@
       "id": "bm-22",
       "title": "一鍵讓模糊照片變清晰 - 免費線上AI 模糊圖片修復工具",
       "url": "https://www.artguru.ai/tw/unblur-image/",
-      "categoryId": "sub-4-1"
-    },
-    {
-      "id": "bm-23",
-      "title": "最好用文字轉語音工具",
-      "url": "https://ttsmaker.com/",
-      "categoryId": "sub-7-1"
+      "categoryId": "sub-3-3"
     },
     {
       "id": "bm-24",
@@ -342,7 +336,7 @@
       "id": "bm-27",
       "title": "小森平的免費下載音效",
       "url": "https://taira-komori.jpn.org/freesoundtw.html?fbclid=IwAR2SQHrpANi2fLqFRH8EPypt7rQS1VZ97pM5Zidkaol6X76_mOi_jjPp9Fk",
-      "categoryId": "sub-2-8"
+      "categoryId": "sub-4-1"
     },
     {
       "id": "bm-28",
@@ -603,12 +597,6 @@
       "categoryId": "sub-2-10"
     },
     {
-      "id": "bm-71",
-      "title": "AP",
-      "url": "https://sites.google.com/view/jassyluoap/home?pli=1&authuser=0",
-      "categoryId": "sub-2-3"
-    },
-    {
       "id": "bm-72",
       "title": "9月中既存記事リライト依頼一覧 - Google 試算表",
       "url": "https://docs.google.com/spreadsheets/d/1JedL8UtVCwzZu5ZLmw1VxLzQ6ap74uAQM2MNMK5usNk/edit?pli=1&gid=1433415270#gid=1433415270",
@@ -624,7 +612,7 @@
       "id": "bm-74",
       "title": "米克師｜AI備課幫手",
       "url": "https://spedmix.pages.dev/?fbclid=IwZnRzaASWHZdleHRuA2FlbQIxMQBzcnRjBmFwcF9pZAo2NjI4NTY4Mzc5AAEeTHfbs7B7Jeok1uf5rZKQteaDiWZPBH3aGNv_KR_djvuRFsDHk3a1zJPgcQM_aem_DFJowxgHGCetQxUG3ogg8A#detail/chinese",
-      "categoryId": "sub-7-1"
+      "categoryId": "sub-4-1"
     },
     {
       "id": "bm-75",
@@ -648,19 +636,13 @@
       "id": "bm-78",
       "title": "写真格納フォルダ - Google 雲端硬碟",
       "url": "https://drive.google.com/drive/u/0/folders/1HOk-satzJPlJ8Z43IdqMmzPDEEbBP637",
-      "categoryId": "sub-7-2"
+      "categoryId": "sub-5-3"
     },
     {
       "id": "bm-79",
       "title": "釧路夕焼け倶楽部 – from East Hokkaido.",
       "url": "https://uyake946.com/",
       "categoryId": "sub-3-1"
-    },
-    {
-      "id": "bm-80",
-      "title": "沖繩萬座毛攻略！象鼻岩絕景、門票、停車資訊＆恩納村周邊景點 - Google 文件",
-      "url": "https://docs.google.com/document/d/10RlK81PaOW6xWQifmhOQeere3Ov9zDhAnro546jwLaM/edit?tab=t.0",
-      "categoryId": "sub-5-3"
     },
     {
       "id": "bm-81",
@@ -696,7 +678,7 @@
       "id": "bm-86",
       "title": "Four Tones Practice 四聲練習小書",
       "url": "https://francesfu.blogspot.jp/2015/07/four-tones-practice.html",
-      "categoryId": "sub-2-9"
+      "categoryId": "sub-2-2"
     },
     {
       "id": "bm-87",
@@ -735,21 +717,9 @@
       "categoryId": "sub-2-2"
     },
     {
-      "id": "bm-93",
-      "title": "日本：中国語基本音節表|オンライン中国語教材と中国語教材のサポートサイト 中国語学習のch-text's",
-      "url": "http://www.ch-texts.org/contents_onsetsu.html",
-      "categoryId": "sub-2-8"
-    },
-    {
       "id": "bm-94",
       "title": "日本人のための声調 - YouTube",
       "url": "https://www.youtube.com/watch?v=4N-aoZQBaV4",
-      "categoryId": "sub-2-8"
-    },
-    {
-      "id": "bm-95",
-      "title": "(3) 夏季老師の日本人のための中国語 「2声と3声の違いをマスターしよう！」 - YouTube",
-      "url": "https://www.youtube.com/watch?v=XG9PBvA3pyQ",
       "categoryId": "sub-2-8"
     },
     {
@@ -799,12 +769,6 @@
       "title": "eLearning 线上教学资源.xlsx - Google 雲端硬碟",
       "url": "https://drive.google.com/file/d/16P3a70VLAJsdegL40i31xRGVjqEjf6NH/view?fbclid=IwAR3t3DjNeR9DPqNIBQZw8mlXS594wX0cSzxh45PIFX-F_7CPbUrnOod-Sdg",
       "categoryId": "sub-7-2"
-    },
-    {
-      "id": "bm-104",
-      "title": "同時錄老師和課件",
-      "url": "https://chrome.google.com/webstore/detail/screencastify-screen-vide/mmeijimgabbpbgpdklnllpncmdofkcpn",
-      "categoryId": "sub-4-1"
     },
     {
       "id": "bm-105",
@@ -865,12 +829,6 @@
       "title": "Instagram 下載器，在線下載視頻、照片、捲軸、IGTV - Snapinsta",
       "url": "https://snapinsta.app/tw-tw",
       "categoryId": "sub-7-1"
-    },
-    {
-      "id": "bm-115",
-      "title": "好用語音轉文字WhisperAI",
-      "url": "https://whisperai.co/",
-      "categoryId": "sub-4-1"
     },
     {
       "id": "bm-116",
@@ -978,7 +936,7 @@
       "id": "bm-133",
       "title": "中文课综艺爆笑游戏！（上篇）",
       "url": "https://mp.weixin.qq.com/s/-4gzWUqlsrKdZplLpQDniw?fbclid=IwAR37zvX4GvYYDOrWfYNT0BnD33yTKUeGUUXMaQxX3-Cwmw4e0I0kS4_CgnQ",
-      "categoryId": "sub-2-1"
+      "categoryId": "sub-2-4"
     },
     {
       "id": "bm-134",
@@ -1029,18 +987,6 @@
       "categoryId": "sub-2-1"
     },
     {
-      "id": "bm-142",
-      "title": "時代華語3 多媒體數位教材",
-      "url": "https://sites.google.com/gap.wzu.edu.tw/modernchinese3/home",
-      "categoryId": "sub-2-1"
-    },
-    {
-      "id": "bm-143",
-      "title": "有關時代華語1的單詞卡與學習集 | Quizlet",
-      "url": "https://quizlet.com/search?query=%E6%99%82%E4%BB%A3%E8%8F%AF%E8%AA%9E1&type=sets&useOriginal=",
-      "categoryId": "sub-2-1"
-    },
-    {
       "id": "bm-144",
       "title": "時代華語數位教材試用平臺 - 教材下載",
       "url": "https://sites.google.com/clc.tku.edu.tw/modernchinese2022trial/%E6%95%99%E6%9D%90%E4%B8%8B%E8%BC%89",
@@ -1050,37 +996,25 @@
       "id": "bm-145",
       "title": "成功之路 起步篇1.pdf",
       "url": "http://jyangkul.net/in-class%20textbooks/For%20more/chenggongzhilu%20qibupian1.html",
-      "categoryId": "sub-2-5"
+      "categoryId": "sub-2-1"
     },
     {
       "id": "bm-146",
       "title": "《成功之路 2 冲刺篇》.PDF",
       "url": "http://jyangkul.net/in-class%20textbooks/For%20more/chenggongzhilu2%20chongcipian.html",
-      "categoryId": "sub-2-5"
-    },
-    {
-      "id": "bm-147",
-      "title": "不懂過年在幹嘛的人！看漫畫學初一到十五的華人過年習俗！ - BuzzHand",
-      "url": "http://www.buzzhand.com/post_529943.html",
-      "categoryId": "sub-2-5"
+      "categoryId": "sub-2-1"
     },
     {
       "id": "bm-148",
       "title": "收藏！很赞的春节教学资源收集",
       "url": "https://mp.weixin.qq.com/s/fvWdkBorEuFHN2Tkobeewg",
-      "categoryId": "sub-2-7"
+      "categoryId": "sub-2-8"
     },
     {
       "id": "bm-149",
       "title": "台灣有趣地名│老外看台灣│郝毅博 Ben Hedges│新唐人電視台 - YouTube",
       "url": "https://www.youtube.com/watch?v=D59hoiMkYYY",
       "categoryId": "sub-1-2"
-    },
-    {
-      "id": "bm-150",
-      "title": "【生活漢字】 - Team Drive - Google Drive",
-      "url": "https://drive.google.com/drive/folders/0ABXtRLwFVMVqUk9PVA",
-      "categoryId": "sub-7-2"
     },
     {
       "id": "bm-151",
@@ -1098,19 +1032,13 @@
       "id": "bm-153",
       "title": "Amy Cuddy: Your body language shapes who you are | TED Talk | TED.com",
       "url": "https://www.ted.com/talks/amy_cuddy_your_body_language_shapes_who_you_are#t-522437",
-      "categoryId": "sub-5-1"
+      "categoryId": "sub-4-2"
     },
     {
       "id": "bm-154",
       "title": "100個台灣特色圖標",
       "url": "https://www.shoppingdesign.com.tw/post/view/5022?fbclid=IwAR2H4KX3vXjqZXQr50Cy-P5ZwgTZzzK0g7q4JlRkXvQaTGOekbyhLFI5ZHo",
       "categoryId": "sub-1-2"
-    },
-    {
-      "id": "bm-155",
-      "title": "《纸飞机的拜访》课件",
-      "url": "https://sites.google.com/fayette.kyschools.us/paper-plane?from=groupmessage&isappinstalled=0",
-      "categoryId": "sub-2-1"
     },
     {
       "id": "bm-156",
@@ -1141,12 +1069,6 @@
       "title": "IB MYP 中文语言与文学融合课程（2）（主讲：张维志） 华语教学出版社 2022 国际中文教育暑期培训（第二期）_哔哩哔哩_bilibili",
       "url": "https://www.bilibili.com/video/BV1La411S7hy/?spm_id_from=333.788.recommend_more_video.2",
       "categoryId": "sub-2-6"
-    },
-    {
-      "id": "bm-161",
-      "title": "hsk课本、练习册的答案 | Chinese Zero to Hero",
-      "url": "https://chinesezerotohero.teachable.com/courses/302494/lectures/6110215",
-      "categoryId": "sub-2-1"
     },
     {
       "id": "bm-162",
@@ -1242,7 +1164,7 @@
       "id": "bm-177",
       "title": "【WAmazing Discover】文章撰寫手冊 - Google 文件",
       "url": "https://docs.google.com/document/d/1cyzG0Jf2e1opBqq5goe6FeVbxsniuqEo9eDuZ9P38HA/edit#heading=h.nvzpzljau2xo",
-      "categoryId": "sub-7-2"
+      "categoryId": "sub-5-3"
     },
     {
       "id": "bm-178",
@@ -1572,7 +1494,7 @@
       "id": "bm-232",
       "title": "PicWish——免費人像修復神器，一鍵模糊照片變清晰",
       "url": "https://picwish.com/tw/unblur-image-portrait",
-      "categoryId": "sub-4-1"
+      "categoryId": "sub-3-3"
     },
     {
       "id": "bm-233",
@@ -1647,12 +1569,6 @@
       "categoryId": "sub-6-1"
     },
     {
-      "id": "bm-1792743900723",
-      "title": "米克師備課",
-      "url": "https://spedmix.pages.dev/?fbclid=IwZnRzaASWHZdleHRuA2FlbQIxMQBzcnRjBmFwcF9pZAo2NjI4NTY4Mzc5AAEeTHfbs7B7Jeok1uf5rZKQteaDiWZPBH3aGNv_KR_djvuRFsDHk3a1zJPgcQM_aem_DFJowxgHGCetQxUG3ogg8A#detail/chinese",
-      "categoryId": "sub-6-1"
-    },
-    {
       "id": "bm-1792744225033",
       "title": "手機和相機如何拍星空",
       "url": "https://youtu.be/0utn09KOFO4?si=XGKyxNB5hqvJ00",
@@ -1668,13 +1584,7 @@
       "id": "bm-1792744586097",
       "title": "課本沒教的華語音檔",
       "url": "https://drive.google.com/drive/folders/1MZfgUQwxduGleMBGqwAUHbckfbFOkNAi",
-      "categoryId": "sub-2-1"
-    },
-    {
-      "id": "bm-1792744637146",
-      "title": "三體",
-      "url": "https://www.99csw.com/book/576/18058.htm",
-      "categoryId": "sub-2-5"
+      "categoryId": "sub-2-8"
     },
     {
       "id": "bm-1792744796730",
@@ -1687,6 +1597,36 @@
       "title": "拜拜文化",
       "url": "https://www.huayuworld.org/NewDetail/Index/1309?fbclid=IwY2xjawTz6_xwZG9mAWV4dG4DYWVtAjEwAGJyaWQRMWhNMmJxNmdFTlBFbWNjNjdzcnRjBmFwcF9pZBAyMjIwMzkxNzg4MjAwODkyAAEeRAaAMA-1fRUz3g6QNL3P5YC68Bjf60RxDhueNTjBL0sDidoAqMvmLV14tPU_aem_IzoSnXAGp4CucGY6rXpZiQ",
       "categoryId": "sub-2-8"
+    },
+    {
+      "id": "bm-1792760387032",
+      "title": "學生說好吃的仙貝",
+      "url": "https://www.bankaku.co.jp/shop/default.aspx?srsltid=AfmBOopXjRQPxlF3NSoRKbxBg6ryQa3oXrKYQTPlC_BPfIok18GZgyG3",
+      "categoryId": "sub-1-7"
+    },
+    {
+      "id": "bm-1792760488113",
+      "title": "《來！學華語》課本生詞遊戲１～６冊",
+      "url": "https://classroom.bbchinese.com/zh-TW/textbooks/laixue",
+      "categoryId": "sub-2-4"
+    },
+    {
+      "id": "bm-1792760578586",
+      "title": "關西機場接送拼車包車",
+      "url": "https://h5.innn.com/activity/tw_activity.html",
+      "categoryId": "sub-1-1"
+    },
+    {
+      "id": "bm-1792760668689",
+      "title": "日本第一的麵包店",
+      "url": "https://www.facebook.com/share/r/1c2J3ejReV/?mibextid=wwXIfr",
+      "categoryId": "sub-1-4"
+    },
+    {
+      "id": "bm-1792760768799",
+      "title": "ＡＩ練習曲",
+      "url": "https://app.notion.com/p/285db0c50e70802e9f2beb4e9d87c203?v=285db0c50e7080fcaee5000cba0a95fa&p=3addb0c50e70807fac6fffb953f35350&pm=s",
+      "categoryId": "sub-4-1"
     }
   ],
   "activeCategory": "sub-2-8"
