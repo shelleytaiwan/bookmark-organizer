@@ -26,7 +26,7 @@
         },
         {
           "id": "sub-1-6",
-          "name": "廚房與生活小秘訣"
+          "name": "生活小秘訣、其他"
         },
         {
           "id": "sub-1-7",
@@ -537,12 +537,6 @@
       "categoryId": "sub-5-3"
     },
     {
-      "id": "bm-61",
-      "title": "AP Chinese Language and Culture Exam Questions – AP Central | College Board",
-      "url": "https://apcentral.collegeboard.org/courses/ap-chinese-language-and-culture/exam/past-exam-questions",
-      "categoryId": "sub-2-3"
-    },
-    {
       "id": "bm-62",
       "title": "拜拜文化",
       "url": "https://www.huayuworld.org/NewDetail/Index/1309?fbclid=IwY2xjawTz6_xwZG9mAWV4dG4DYWVtAjEwAGJyaWQRMWhNMmJxNmdFTlBFbWNjNjdzcnRjBmFwcF9pZBAyMjIwMzkxNzg4MjAwODkyAAEeRAaAMA-1fRUz3g6QNL3P5YC68Bjf60RxDhueNTjBL0sDidoAqMvmLV14tPU_aem_IzoSnXAGp4CucGY6rXpZiQ",
@@ -789,12 +783,6 @@
       "categoryId": "sub-7-1"
     },
     {
-      "id": "bm-108",
-      "title": "[網站] 集結50多個來源的素材庫『Zoommy』 美麗的免費照片唾手可得! - 電獺少女",
-      "url": "https://agirls.aotter.net/post/51828",
-      "categoryId": "sub-3-2"
-    },
-    {
       "id": "bm-109",
       "title": "最好的文字轉語音",
       "url": "https://www.ffkuaidu.com/",
@@ -993,18 +981,6 @@
       "categoryId": "sub-2-1"
     },
     {
-      "id": "bm-145",
-      "title": "成功之路 起步篇1.pdf",
-      "url": "http://jyangkul.net/in-class%20textbooks/For%20more/chenggongzhilu%20qibupian1.html",
-      "categoryId": "sub-2-1"
-    },
-    {
-      "id": "bm-146",
-      "title": "《成功之路 2 冲刺篇》.PDF",
-      "url": "http://jyangkul.net/in-class%20textbooks/For%20more/chenggongzhilu2%20chongcipian.html",
-      "categoryId": "sub-2-1"
-    },
-    {
       "id": "bm-148",
       "title": "收藏！很赞的春节教学资源收集",
       "url": "https://mp.weixin.qq.com/s/fvWdkBorEuFHN2Tkobeewg",
@@ -1131,12 +1107,6 @@
       "categoryId": "sub-5-1"
     },
     {
-      "id": "bm-172",
-      "title": "Free Vector Icons and Stickers - PNG, SVG, EPS, PSD and CSS",
-      "url": "https://www.flaticon.com/",
-      "categoryId": "sub-3-2"
-    },
-    {
       "id": "bm-173",
       "title": "做料理學華語 Ep.1 玉米蛋炒飯 - YouTube",
       "url": "https://www.youtube.com/watch?v=dVqF9Vfxvls",
@@ -1167,12 +1137,6 @@
       "categoryId": "sub-5-3"
     },
     {
-      "id": "bm-178",
-      "title": "TOEIC Part 4- Short Talks (説明文問題) – Quiz 1 | エイゴパス会員専用学習サイト",
-      "url": "http://www.members.eigopass.com/?p=550",
-      "categoryId": "sub-2-4"
-    },
-    {
       "id": "bm-179",
       "title": "Good Luck TOEFL - TOEFL Speaking Tips",
       "url": "http://www.goodlucktoefl.com/TOEFL-speaking-tips.html",
@@ -1182,7 +1146,7 @@
       "id": "bm-180",
       "title": "[App 互動版] 以琳老師多益閱讀速度修煉課 | WORD UP",
       "url": "https://shop.wordup.com.tw/product/347?utm_source=edm&utm_medium=all_user&utm_campaign=yiling_toeic_reading&utm_content=free_trial",
-      "categoryId": "sub-2-4"
+      "categoryId": "sub-4-1"
     },
     {
       "id": "bm-181",
@@ -1627,7 +1591,37 @@
       "title": "ＡＩ練習曲",
       "url": "https://app.notion.com/p/285db0c50e70802e9f2beb4e9d87c203?v=285db0c50e7080fcaee5000cba0a95fa&p=3addb0c50e70807fac6fffb953f35350&pm=s",
       "categoryId": "sub-4-1"
+    },
+    {
+      "id": "bm-1793851014491",
+      "title": "大阪大叔",
+      "url": "https://www.facebook.com/groups/431524120274722/user/100000712451848",
+      "categoryId": "sub-1-6"
+    },
+    {
+      "id": "bm-1793851245994",
+      "title": "互動工具製作",
+      "url": "https://wenchuanwork-games.netlify.app/?fbclid=IwY2xjawVURcpleHRuA2FlbQIxMABwZG9mAWJyaWQRMXNWcUg5RXZBUnlod1AwVUJzcnRjBmFwcF9pZBAyMjIwMzkxNzg4MjAwODkyAAEfVEbAKl8EWYLA6FEABePRFlHD5eWzMxl_MdnzZ-iDjH2OUhD1Dl837jdvYn0_aem_qKeTzrxXAQktQ5dNU92ElQ",
+      "categoryId": "sub-2-4"
+    },
+    {
+      "id": "bm-1793851310300",
+      "title": "官方考題",
+      "url": "https://apcentral.collegeboard.org/courses/ap-chinese-language-and-culture/exam/past-exam-questions",
+      "categoryId": "sub-2-3"
+    },
+    {
+      "id": "bm-1793851383222",
+      "title": "生詞表製作",
+      "url": "https://yanshimandarin.com/tools/vocab/",
+      "categoryId": "sub-2-1"
+    },
+    {
+      "id": "bm-1793851458945",
+      "title": "師大華語拍檔備課工具",
+      "url": "師大華語拍檔備課工具",
+      "categoryId": "sub-2-1"
     }
   ],
-  "activeCategory": "sub-2-8"
+  "activeCategory": "sub-2-1"
 }
